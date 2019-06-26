@@ -1,24 +1,6 @@
-# Node Server UI base
+# Pi Sign Controller
 
-Skeleton for a sever/client TypeScript pair.
-
-## Details
-
-This skeleton has 3 parts.
-
-1. A super simple node.js daemon skeleton with socket.io and colorful logging facilities.
-2. Basic React app skeleton with webpack, TypeScript, reactstrap, and socket.io client.
-3. Deployment scripts
-
-Many apps can just be run locally for testing or development or directly on a target machine which is useful if there special hardware attached.
-
-## create-node-server-ui-app
-
-Simple steps to make a new project/app based on this skeleton.
-
-1. clone
-1. Update `README.md` and `package.json`
-1. `git commit -am 'Initial commit'`
+Controller for the Math Camp @ Group W Pi Sign
 
 ## Development
 
