@@ -4,23 +4,23 @@
 import * as debug from './utils/debug';
 import makeClientHandler from './ClientHandler';
 
-import WS2812 from 'rpi-ws281x-native';
+import WS281x from 'rpi-ws281x-native';
 
 debug.green('Hello, world.');
 
-const numLeds = pixels.length;
+const numPixels = 150;
 
-WS2812.init(numLeds);
-WS2812.setBrightness(255);
+WS281x.init(numPixels);
+WS281x.setBrightness(255);
 
-const buff = new Uint32Array(numLeds);
+const buff = new Uint32Array(numPixels);
 
 setInterval(() => {
-  const frame = { pixels: animation(Date.now()) };
+  for (let i = 0; i < numPixels; i++) {
+    buff[i] = 0;
+  }
 
-  buff.set(frame.pixels.map(({ r, g, b }) => (r << 16) | (g << 8) | b));
-
-  WS2812.render(buff);
+  WS281x.render(buff);
 }, 1000 / 40);
 
 // Events from the clients and how to handle them
