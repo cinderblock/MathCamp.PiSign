@@ -819,6 +819,13 @@ rimraf@^2.6.1:
   dependencies:
     glob "^7.1.3"
 
+rpi-ws281x-native@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/rpi-ws281x-native/-/rpi-ws281x-native-0.9.0.tgz#c89a6c292d8a97fe855fbfac4fe600b0765c55cb"
+  integrity sha512-Wj5X2iZyI5LMzxQeUoRpQJLIMWmthFDiOrcgRsIjZaebyzLsM0QtZ309YSF0enDYNdSQj+y0pmn9+uDHyvO/8A==
+  dependencies:
+    nan "^2.0.9"
+
 "semver@2 || 3 || 4 || 5", semver@^5.1.0:
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.7.0.tgz#790a7cf6fea5459bac96110b29b60412dc8ff96b"
