@@ -2,7 +2,7 @@ import { createServer } from 'http';
 import { uptime } from 'os';
 
 import chalk from 'chalk';
-import * as SocketIO from 'socket.io';
+import SocketIO from 'socket.io';
 import ServerStarter = require('server-starter');
 
 let clientID = 0;
