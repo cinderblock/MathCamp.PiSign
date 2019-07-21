@@ -6,6 +6,20 @@ import makeClientHandler from './ClientHandler';
 
 import WS281x from 'rpi-ws281x-native';
 
+import Koa from 'koa';
+import Router from 'koa-router';
+
+const koa = new Koa();
+const app = new Router();
+
+app.get('/:color', async ctx => {
+  ctx.body = ctx.params.name;
+  set(ctx.params.name);
+});
+
+koa.use(app.routes());
+koa.listen(3000);
+
 debug.green('Hello, world.');
 
 const numPixels = 150;
@@ -13,15 +27,38 @@ const numPixels = 150;
 WS281x.init(numPixels);
 WS281x.setBrightness(255);
 
-const buff = new Uint32Array(numPixels);
+const maxBrightness = 1;
+const maxRaw = 255;
 
-setInterval(() => {
-  for (let i = 0; i < numPixels; i++) {
-    buff[i] = 0;
+export function curve(input: number) {
+  input = Math.min(Math.max(input, 0), maxBrightness);
+  return input && Math.round(Math.exp((Math.log(maxRaw) * input) / maxBrightness));
+}
+
+function set(color: string) {
+  if (color == 'red') {
+    const buff = new Uint32Array(numPixels);
+
+    for (let i = 0; i < numPixels; i++) {
+      buff[i] = (255 << 16) | (0 << 8) | (0 << 0);
+    }
+
+    // console.log('Start');
+    WS281x.render(buff);
+  } else {
+    const buff = new Uint32Array(numPixels);
+
+    for (let i = 0; i < numPixels; i++) {
+      buff[i] = (255 << 16) | (255 << 8) | (255 << 0);
+    }
+
+    // console.log('Start');
+    WS281x.render(buff);
   }
+}
+const startTime = Date.now();
 
-  WS281x.render(buff);
-}, 1000 / 40);
+set('white');
 
 // Events from the clients and how to handle them
 const remoteControlServer = makeClientHandler({
@@ -38,8 +75,6 @@ const remoteControlServer = makeClientHandler({
   // Shut the whole thing down.
   Shutdown,
 });
-
-debug.green('Hello, world.');
 
 function Shutdown() {
   setImmediate(() => {
